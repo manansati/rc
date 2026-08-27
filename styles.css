@@ -1,0 +1,2993 @@
+/* CSS Design System and Reset */
+:root {
+    --bg-white: #ffffff;
+    --bg-page: #f9f8f5;
+    --font-primary: 'Instrument Sans', sans-serif;
+    --text-primary: #111111;
+    --text-secondary: #313131;
+    --text-muted: #71767f;
+    --border-color: #f2f2f2;
+    --green-pulse: #00c047;
+    --navbar-height: 80px;
+    --navbar-height-mobile: 70px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Utilities */
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* Navbar Layout & Aesthetics */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.navbar-brand:hover {
+    opacity: 0.8;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar-link {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--text-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease;
+}
+
+.navbar-link:hover {
+    color: var(--text-primary);
+}
+
+.navbar-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.navbar-link.active::after {
+    transform: scaleX(1);
+}
+
+/* ─── Glassy Navbar CTA (v4 — true black glass, no motion) ──────────────────
+   Genuinely black translucent glass surface: high-opacity near-black
+   background (not grey), subtle blur, thin hairline border, minimal
+   shadow, white text. No gradients, no glow. Hover/active are stationary —
+   opacity/color shift only, no lift, scale, or transform.
+   ─────────────────────────────────────────────────────────────────────────── */
+.navbar-cta {
+    background-color: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(6px) saturate(120%);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.navbar-cta-inner {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    padding: 8px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.navbar-cta:hover {
+    background-color: rgba(20, 20, 20, 0.95);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.navbar-cta:active {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+/* ─── Standard black pill CTA (used elsewhere on the page) ─────────────────── */
+.btn-primary {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--bg-white);
+    background-color: var(--text-primary);
+    padding: 10px 22px;
+    border-radius: 9999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    background-color: #333333;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1010;
+}
+
+.mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-primary);
+    margin: 5px 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.mobile-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Drawer Menu */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding: 40px;
+    z-index: 999;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.mobile-drawer.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-drawer .navbar-link {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.mobile-drawer .navbar-cta {
+    font-size: 18px;
+    padding: 14px 40px;
+    width: auto;
+    margin-top: 16px;
+}
+
+/* Section Shared Layouts */
+.section-padding {
+    padding: 160px 80px;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Responsive Navbar Shared Rules */
+@media (max-width: 900px) {
+    .navbar-links {
+        display: none;
+    }
+
+    .navbar-cta {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 1199px) {
+    .navbar {
+        padding: 0 40px;
+        height: var(--navbar-height-mobile);
+    }
+
+    .section-padding {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 809px) {
+    .navbar {
+        padding: 0 24px;
+    }
+
+    .section-padding {
+        padding: 100px 24px;
+    }
+}
+
+/* ==========================================================================
+   About Section — Premium Personal-Brand Introduction
+   ========================================================================== */
+
+.about-section {
+    background-color: #f9f8f5;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 0.88fr 1.12fr;
+    align-items: stretch;
+    column-gap: 88px;
+}
+
+/* ---- Visual column (left) ---- */
+
+.about-visual {
+    display: flex;
+    /* Box itself no longer animates — only the portrait inside it does.
+       See .about-portrait's entrance + parallax rules below. */
+}
+
+.about-frame {
+    flex: 1;
+    position: relative;
+    background-color: #f2f2f0;
+    border-radius: 28px;
+    /* Mat border on the top/left/right only, none on the bottom — so
+       the portrait's feet land exactly on the frame's bottom edge
+       instead of floating above it on a strip of padding. */
+    padding: 24px 24px 0 24px;
+    min-height: 520px;
+    /* Overflow stays visible so the portrait can rise above the frame
+       (the intended "popping out" look) and, since --portrait-width
+       below is set above 100%, spill slightly past the left/right
+       edges too — see .about-portrait below. */
+    overflow: visible;
+}
+
+/* ==========================================================================
+   PORTRAIT — sized and anchored relative to the FRAME, not the viewport
+   ==========================================================================
+   The old approach positioned the portrait with fixed-feeling offsets
+   tuned per breakpoint, which drifted out of place at zoom levels or
+   screen widths in between. This version uses only percentages of
+   .about-frame's own box, so the composition holds true at any zoom,
+   window width, or device — one rule works everywhere, nothing to
+   retune per screen size.
+
+   --portrait-width : portrait width as a % of the frame's own width.
+                       This is now the ONLY size control. Height is
+                       intentionally left to "auto" so it's derived
+                       from the photo's real aspect ratio at that
+                       width — never capped or fought over by a
+                       second, competing size rule.
+
+                       Since the portrait is bottom-anchored, whenever
+                       the auto-computed height is taller than the
+                       frame itself, that extra height rises straight
+                       above the frame's top edge — this is what
+                       creates the "head popping out" 3D effect,
+                       automatically, at any screen size.
+
+                       (Previous version set width:auto + a % height
+                       + a max-width safety cap at the same time. For
+                       a tall portrait photo, the max-width cap won
+                       every time and silently shrank the effective
+                       height too — so raising the "size control"
+                       variable did nothing. That's fixed below by
+                       only ever driving size from width.)
+*/
+.about-portrait {
+    /* THE size control — raise this to make the photo bigger, lower
+       it to shrink it. 100% = fills the frame edge-to-edge on the
+       sides (matching the flush bottom). Push past 100% to also
+       bleed over the frame's left/right edges for an even bigger,
+       more dramatic pop — the frame's overflow:visible allows it. */
+    --portrait-width: 90%;
+    /* Safety cap — the photo's auto-height can never exceed this % of
+       the FRAME's own height, no matter how wide (and therefore tall)
+       --portrait-width computes it to be. Without this, a wide-but-
+       short frame (tablets, foldables like the Zenfold, where the
+       layout drops to one column and the box gets much wider relative
+       to its height) lets the head balloon way above the visible
+       area. Lower this if the head still runs off-screen on a given
+       device; raise it for a bigger pop on tall/narrow frames. */
+    --portrait-max-height: 120%;
+    /* Entrance-reveal: starts pushed down below the frame + blurred +
+       invisible, animates to resting/sharp when .is-visible is added.
+       No scroll parallax on this image by design — the observer in
+       script.js toggles .is-visible on/off each time the section
+       enters/leaves the viewport, so this replays every time. */
+    --reveal-y: 70px;
+    --reveal-blur: 6px;
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: var(--portrait-width);
+    height: auto;
+    max-height: var(--portrait-max-height);
+    opacity: 0;
+    transform: translateX(-50%) translateY(var(--reveal-y));
+    filter: blur(var(--reveal-blur)) drop-shadow(0 28px 40px rgba(0, 0, 0, 0.16));
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+    pointer-events: none;
+}
+
+.about-portrait.is-visible {
+    --reveal-y: 0px;
+    --reveal-blur: 0px;
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-portrait {
+        transition: none;
+        opacity: 1;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.16));
+    }
+}
+
+/* ---- Content column (right) ---- */
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.about-heading {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(42px, 3.8vw, 62px);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+}
+
+.about-eyebrow {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7A7873;
+    margin-bottom: 26px;
+}
+
+.about-text {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+    max-width: 460px;
+    margin-bottom: 40px;
+}
+
+.about-cta-wrap {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.about-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.btn-about {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    height: 52px;
+    padding: 0 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.btn-about.btn-light-gray {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.btn-about.btn-light-gray:hover {
+    background-color: #e6e6e6;
+}
+
+.btn-about.btn-dark {
+    background-color: #1A1A19;
+    color: var(--bg-white);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-about.btn-dark:hover {
+    background-color: #2a2a2a;
+}
+
+.btn-about:active {
+    transform: scale(0.98);
+}
+
+.about-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.social-icons-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.social-icon-link:hover {
+    color: var(--text-primary);
+    background-color: var(--border-color);
+    transform: translateY(-1px);
+}
+
+.social-icon-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* ---- Responsive ---- */
+/* Only layout (grid/min-height) changes across breakpoints now — the
+   portrait itself needs no per-breakpoint tuning at all. */
+
+@media (max-width: 1199px) {
+    .about-grid {
+        column-gap: 56px;
+    }
+
+    .about-frame {
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        row-gap: 48px;
+    }
+
+    .about-frame {
+        min-height: 380px;
+    }
+
+    .about-text,
+    .about-socials {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-heading {
+        margin-bottom: 20px;
+    }
+
+    .about-text {
+        font-size: 16px;
+        margin-bottom: 32px;
+    }
+
+    .about-cta-wrap {
+        width: 100%;
+    }
+
+    .about-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-about {
+        width: 100%;
+    }
+
+    .about-socials {
+        justify-content: center;
+    }
+
+    .social-icons-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    /* Extra breathing room between portrait area and text below. */
+    .about-visual {
+        margin-bottom: clamp(16px, 3vw, 24px);
+    }
+}
+
+/* ==========================================================================
+   Programs Section — "Choose your path."
+   Reuses the design tokens defined in :root above (font, text colors,
+   border color) for full visual continuity with the rest of the site.
+   ========================================================================== */
+
+.programs-section {
+    background-color: #F9F8F5;
+}
+
+/* ---- Header ---- */
+
+.programs-header {
+    max-width: 640px;
+    margin: 0 auto 72px auto;
+    text-align: center;
+}
+
+/* ---- 1. Eyebrow, subheadline & badge are no longer part of this
+   section's design — hidden here (rather than removed from the HTML,
+   per the styles-only scope of this update) so the markup can stay
+   untouched. ---- */
+.programs-eyebrow,
+.programs-subtext,
+.card-tag {
+    display: none !important;
+}
+
+.programs-heading {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 0;
+}
+
+/* ---- Card grid ---- */
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    align-items: stretch;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+/* ---- 5. Bottom CTA — "Explore all courses →"
+   Rendered as a generated pseudo-element so the markup stays untouched
+   (styles-only scope of this update). It's laid out as an extra grid
+   row spanning both columns and centered beneath the cards. Note: as
+   a ::after it carries no href — wire it to an actual <a>/<button> in
+   the HTML if it needs to navigate anywhere. ---- */
+.programs-grid::after {
+    content: 'Explore all courses →';
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 40px;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: #1A1A19;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(26, 26, 25, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover: fixed position — background/border shift only, no movement */
+.programs-grid::after:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(26, 26, 25, 0.25);
+}
+
+.program-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 16px;
+    padding: 48px 44px;
+    position: relative;
+    overflow: visible;
+    min-height: 480px;
+}
+
+/* ---- 2. Card 01 — Foundation (white card) ---- */
+
+.program-card.card-light {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: #4A4843;
+}
+
+.program-card.card-light .program-name,
+.program-card.card-light .program-price {
+    color: #1A1A19;
+}
+
+.program-card.card-light .program-number,
+.program-card.card-light .program-description,
+.program-card.card-light .meta-label,
+.program-card.card-light .meta-value,
+.program-card.card-light .program-deliverables li {
+    color: #4A4843;
+    opacity: 1;
+}
+
+/* ---- 2. Card 02 — Transformation (dark, noisy background image) ---- */
+
+.program-card.card-dark {
+    background-image: url('assets/black.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    border: none;
+    color: #FFFFFF;
+}
+
+.program-card.card-dark .program-name,
+.program-card.card-dark .program-price {
+    color: #FFFFFF;
+}
+
+.program-card.card-dark .program-number,
+.program-card.card-dark .program-description,
+.program-card.card-dark .meta-label,
+.program-card.card-dark .meta-value,
+.program-card.card-dark .program-deliverables li {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.program-card.card-dark .program-meta {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ---- Card internals (shared) ---- */
+
+.program-number {
+    display: none;
+}
+
+.program-name {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.program-description {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    opacity: 0.72;
+    max-width: 340px;
+    margin-bottom: 32px;
+}
+
+.program-meta {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meta-label {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+.meta-value {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+/* ---- 3. Deliverables — fills the space under the meta row ---- */
+
+.program-deliverables {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.program-deliverables li {
+    position: relative;
+    padding-left: 22px;
+    font-family: var(--font-primary);
+    font-size: 14.5px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    opacity: 0.78;
+}
+
+.program-deliverables li::before {
+    content: '\2022';
+    /* bullet point — styled via CSS only, never a typed character in
+       the markup, so it can't be accidentally text-selected or copied. */
+    position: absolute;
+    left: 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    opacity: 0.4;
+    user-select: none;
+}
+
+.program-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.program-price {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+/* ---- 4. Buttons — sleek 6px radius ---- */
+
+.program-btn {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    height: 50px;
+    padding: 0 26px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border: 1px solid #1A1A19;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Card 01 — "Book a Session": glassy outlined CTA */
+.btn-dark-on-light {
+    background: rgba(26, 26, 25, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(26, 26, 25, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    color: #1A1A19;
+    border-radius: 6px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover: fixed position — background/border shift only, no movement */
+.btn-dark-on-light:hover {
+    background: rgba(26, 26, 25, 0.09);
+    border-color: rgba(26, 26, 25, 0.3);
+}
+
+/* Card 02 — "Start Your Transformation": glassmorphic light-on-dark CTA */
+.btn-light-on-dark {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+    color: #1A1A19;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+/* Hover: fixed position — background shift only, no movement */
+.btn-light-on-dark:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) {
+    .programs-grid {
+        gap: 24px;
+    }
+
+    .program-card {
+        padding: 40px 36px;
+        min-height: 440px;
+    }
+}
+
+@media (max-width: 768px) {
+    .programs-section.section-padding {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .programs-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+
+    .programs-grid > * {
+        width: 100% !important;
+    }
+
+    /* The bottom-CTA pseudo-element isn't matched by ">  *" (it's
+       generated content, not a child element) and its grid-column /
+       justify-self centering no-ops once the grid becomes a flex
+       container above — align-self keeps it centered under flex. */
+    .programs-grid::after {
+        align-self: center;
+        width: auto;
+    }
+
+    .program-card {
+        width: 100%;
+        min-height: 0;
+        padding: 24px;
+    }
+
+    /* Body copy & deliverables text never drop below 15px on mobile */
+    .program-description,
+    .program-deliverables li {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .programs-header {
+        margin-bottom: 48px;
+    }
+
+    .program-card {
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .program-meta {
+        gap: 20px;
+    }
+
+    .program-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .program-btn {
+        width: 100%;
+    }
+
+    .program-price {
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   Contact Section — "Let's Talk."
+   Reuses design tokens from :root and the dark-panel language established
+   in the Programs section (.card-dark) for full visual continuity.
+   ========================================================================== */
+
+.contact-section {
+    background-color: #f9f8f5;
+}
+
+.contact-card {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ---- Left panel — Introduction ---- */
+
+.contact-intro {
+    background-image: url('assets/black.webp');
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    padding: 48px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-intro::before {
+    /* same restrained ambient highlight used on .card-dark */
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+}
+
+.contact-intro-top {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-eyebrow {
+    display: block;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 24px;
+}
+
+.contact-heading {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.contact-text {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 360px;
+}
+
+/* ---- Social links ---- */
+
+.contact-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 32px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.social-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    opacity: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.social-icon:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.55);
+    transform: translateY(-1px);
+}
+
+/* ---- Right panel — Contact form ---- */
+
+.contact-form-panel {
+    background-color: #FFFFFF;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-field label {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7A7873;
+}
+
+.form-field input,
+.form-field textarea {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    color: var(--text-primary);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #E5E3DD;
+    padding: 10px 0;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #A3A19B;
+    font-size: 14px;
+    opacity: 1;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-bottom-color: #1A1A19;
+    outline: none;
+}
+
+.form-field textarea {
+    resize: none;
+    min-height: 120px;
+    line-height: 1.5;
+}
+
+.contact-submit-btn {
+    margin-top: 10px;
+    align-self: flex-start;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    background-color: #1A1A19;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.contact-submit-btn:hover {
+    background-color: #2a2a2a;
+}
+
+.contact-submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) {
+
+    .contact-intro,
+    .contact-form-panel {
+        padding: 40px 40px;
+    }
+
+    .contact-intro {
+        gap: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        width: 100% !important;
+    }
+
+    .contact-card {
+        grid-template-columns: 1fr;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        border-radius: 16px;
+    }
+
+    .contact-intro,
+    .contact-form-panel {
+        height: auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+    }
+
+    .contact-intro {
+        padding: 24px 20px;
+        gap: 24px;
+    }
+
+    .contact-form-panel {
+        padding: 20px;
+    }
+
+    .contact-heading {
+        font-size: clamp(32px, 8vw, 42px);
+    }
+
+    .contact-text {
+        max-width: 100%;
+    }
+
+    .contact-socials {
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-card {
+        border-radius: 16px;
+    }
+
+    .contact-intro {
+        padding: 24px 20px;
+        gap: 20px;
+    }
+
+    .contact-form-panel {
+        padding: 20px;
+    }
+
+    .contact-eyebrow {
+        margin-bottom: 18px;
+    }
+
+    .contact-socials {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 20px;
+    }
+
+    .contact-submit-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   Site Footer — Premium dark closing panel
+   Reuses the design tokens defined in :root, and the dark-panel visual
+   language (ambient radial highlight, rounded corners, texture) already
+   established by the Process and Programs sections for full continuity.
+   Also reuses the existing .social-icon component from the Contact section
+   rather than introducing a new icon style.
+   ========================================================================== */
+
+.footer-preview-spacer {
+    width: 100%;
+    height: 78vh;
+}
+
+.site-footer-wrapper {
+    background-color: #F9F8F5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.site-footer {
+    width: 100%;
+    min-height: 60vh;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    background-color: #0F0F0F !important;
+    background-image: url('assets/black.webp') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    position: relative;
+    overflow: hidden !important;
+    box-sizing: border-box;
+    padding: 96px 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 72px;
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: none;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.4);
+}
+
+/* Nuke all child backgrounds, shadows, and filters — no hidden box
+   inside the footer can render its own layer. */
+.site-footer *,
+.site-footer div,
+.site-footer ul,
+.site-footer li,
+.site-footer a {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
+
+/* Nuke leftover pseudo-element boxes on any footer descendant —
+   the single background above lives only on .site-footer itself. */
+.site-footer *::before,
+.site-footer *::after {
+    content: none !important;
+    display: none !important;
+}
+
+.footer-inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 6%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+}
+
+/* ---- Top area: Brand / Navigation / Connect ---- */
+
+.footer-top {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 420px) minmax(0, 160px) minmax(0, 160px);
+    justify-content: space-between;
+    column-gap: 48px;
+    row-gap: 56px;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 380px;
+}
+
+.footer-brand-name {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.footer-brand-tagline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 320px;
+    margin: 0;
+}
+
+.footer-col-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 24px 0;
+}
+
+.footer-nav {
+    max-width: 160px;
+}
+
+.footer-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav-links a {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    width: fit-content;
+    opacity: 0.65;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+}
+
+.footer-nav-links a:hover {
+    opacity: 1;
+}
+
+.footer-connect {
+    display: flex;
+    flex-direction: column;
+    max-width: 160px;
+}
+
+/* ---- Bottom row ---- */
+
+.footer-bottom {
+    position: relative;
+    z-index: 1;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-copyright {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+}
+
+.footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-legal a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) {
+    .footer-preview-spacer {
+        height: 65vh;
+    }
+
+    .site-footer {
+        border-radius: 48px 48px 0 0;
+        padding: 80px 0 36px;
+        gap: 56px;
+        min-height: 55vh;
+    }
+
+    .footer-inner {
+        gap: 56px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 48px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+        max-width: 460px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-preview-spacer {
+        height: 55vh;
+    }
+
+    .site-footer {
+        border-radius: 36px 36px 0 0;
+        padding: 64px 0 32px;
+        gap: 48px;
+        min-height: auto;
+    }
+
+    .footer-inner {
+        padding: 0 32px;
+        gap: 48px;
+    }
+
+    .footer-top {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-legal {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-preview-spacer {
+        height: 45vh;
+    }
+
+    .site-footer {
+        border-radius: 24px 24px 0 0;
+        padding: 48px 0 28px;
+        gap: 40px;
+    }
+
+    .footer-inner {
+        padding: 0 24px;
+        gap: 40px;
+    }
+
+    .footer-legal {
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+}
+
+/* ==========================================================================
+   Bento Gallery — Premium Interactive Photography Installation
+   Section wrapper handles the white canvas + centering; .bento-outer is
+   the black container itself.
+   ========================================================================== */
+
+.bento-section {
+    width: 100%;
+    padding: 24px 0;
+    background-color: #f9f8f5;
+    box-sizing: border-box;
+}
+
+.bento-outer {
+    /* MANUAL ADJUSTMENT — container side margins are fixed at 5% each:
+       width 90% + margin 5% left + 5% right = 100% of the section width.
+       Height is governed by .bento-grid's grid-auto-rows below (unchanged). */
+    width: 90%;
+    margin: 0 5%;
+    background: #000000;
+    border-radius: 24px;
+    padding: 16px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* ==================================================================
+   MANUAL GALLERY RATIO CONTROLS
+   Adjust the width/height/aspect-ratio of each item below.
+   These values are intentionally exposed so each photograph/video
+   can be manually fitted to the desired composition.
+
+   - grid-auto-rows sets the base row height for the whole grid
+     (this is the "current height" and is left as-is).
+   - Each individual item's shape is controlled by how many
+     columns/rows it spans, which you can override per item in the
+     "PER-ITEM OVERRIDES" block further down this file.
+   ================================================================== */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 160px;
+    /* base row height — keep as-is to preserve current gallery height */
+    gap: 12px;
+    width: 100%;
+}
+
+.bento-cell {
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: default;
+    transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale(1);
+    transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+.bento-media {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+}
+
+.bento-media img,
+.bento-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+/* placeholder emoji stand-in for real media */
+.bento-placeholder {
+    font-size: 42px;
+    line-height: 1;
+    filter: saturate(0.9);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* --- Hover overlay: whole image gets a clearly visible ~30% black
+   wash + an extremely subtle blur; photo/video stays clearly visible --- */
+.bento-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    /* 30% black wash across the entire image */
+    backdrop-filter: blur(0.6px);
+    -webkit-backdrop-filter: blur(0.6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+.bento-cell:hover .bento-overlay {
+    opacity: 1;
+}
+
+.bento-overlay span {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* entrance animation */
+.bento-item {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.bento-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================================================================
+   MANUAL GALLERY RATIO CONTROLS — PER-ITEM OVERRIDES
+   Each rule below targets one gallery item by its position
+   (1st, 2nd, 3rd... item in the grid) and controls its shape via
+   grid-column / grid-row span. Edit the numbers to change that
+   item's width/height/aspect-ratio independently of the others.
+
+   How to read a span, e.g. "grid-column: 1 / 4":
+     - spans from column line 1 to column line 4 → 3 columns wide
+   e.g. "grid-row: 1 / 3":
+     - spans from row line 1 to row line 3 → 2 rows tall
+   (grid-auto-rows above sets the height of a single row.)
+
+   !important is used here so these values reliably override the
+   default placement set in the JS data model in bento.html.
+   ================================================================== */
+/* Item 1 ratio — currently ~3 cols x 2 rows (large, ~3:2) */
+.bento-grid .bento-item:nth-child(1) {
+    grid-column: 1 / 4 !important;
+    grid-row: 1 / 3 !important;
+}
+
+/* Item 2 ratio — currently ~2 cols x 2 rows (square, 1:1) */
+.bento-grid .bento-item:nth-child(2) {
+    grid-column: 4 / 6 !important;
+    grid-row: 1 / 3 !important;
+}
+
+/* Item 3 ratio — currently ~1 col x 1 row (small square) */
+.bento-grid .bento-item:nth-child(3) {
+    grid-column: 6 / 7 !important;
+    grid-row: 1 / 2 !important;
+}
+
+/* Item 4 ratio — currently ~1 col x 1 row (small square) */
+.bento-grid .bento-item:nth-child(4) {
+    grid-column: 6 / 7 !important;
+    grid-row: 2 / 3 !important;
+}
+
+/* Item 5 ratio — currently ~1 col x 2 rows (portrait) */
+.bento-grid .bento-item:nth-child(5) {
+    grid-column: 1 / 2 !important;
+    grid-row: 3 / 5 !important;
+}
+
+/* Item 6 ratio — currently ~2 cols x 2 rows (square, 1:1) */
+.bento-grid .bento-item:nth-child(6) {
+    grid-column: 2 / 4 !important;
+    grid-row: 3 / 5 !important;
+}
+
+/* Item 7 ratio — currently ~2 cols x 2 rows (square, 1:1) */
+.bento-grid .bento-item:nth-child(7) {
+    grid-column: 4 / 6 !important;
+    grid-row: 3 / 5 !important;
+}
+
+/* Item 8 ratio — currently ~1 col x 2 rows (portrait) */
+.bento-grid .bento-item:nth-child(8) {
+    grid-column: 6 / 7 !important;
+    grid-row: 3 / 5 !important;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 809px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 130px;
+    }
+
+    .bento-cell {
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 110px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bento-cell,
+    .bento-item,
+    .bento-overlay {
+        transition: none !important;
+    }
+}
+
+/* =======================================================
+   HERO SECTION (migrated from 1.html inline <style>)
+   ======================================================= */
+/* =======================================================
+           HERO PORTRAIT — MANUAL ADJUSTMENT
+           Change these CSS variables to resize / reposition
+           Rakesh's portrait at each breakpoint.
+
+           Desktop  : --hero-portrait-scale   (1 = natural size)
+                      --hero-portrait-top     (distance from hero top)
+                      --hero-portrait-width   (wrapper pixel width)
+           Tablet   : same with -tablet suffix
+           Mobile   : same with -mobile suffix
+           ======================================================= */
+:root {
+    /* Desktop — scale ~1.5× larger than previous 0.82 */
+    --hero-portrait-scale: 1;
+    --hero-portrait-top: 80px;
+    /* moved slightly up */
+    --hero-portrait-width: 900px;
+
+    /* Tablet */
+    --hero-portrait-scale-tablet: 1.0;
+    --hero-portrait-top-tablet: 30px;
+    --hero-portrait-width-tablet: 680px;
+
+    /* Mobile — handled by a separate stacked layout below */
+    --hero-portrait-width-mobile: 100%;
+
+    /* =======================================================
+               NAVBAR — MANUAL ADJUSTMENT
+               --navbar-height-override   : height of the pill nav
+               --navbar-h-padding         : left/right inner padding
+               --navbar-logo-height       : logo image display height
+               --navbar-logo-left-trim    : negative left margin that
+                                            removes excess PNG whitespace
+               ======================================================= */
+    --navbar-height-override: 52px;
+    --navbar-h-padding: 28px;
+    --navbar-logo-height: 46px;
+    /* visible logo size  */
+    --navbar-logo-left-trim: -14px;
+    /* pull logo leftward to eat PNG padding */
+}
+
+/* Hero Container Layout */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #f9f8f5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Image Positioning and Framing */
+.hero-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Entrance: image rises in from below the frame, softly blurred to
+       sharp, once the headline + copy have finished animating (class
+       added by JS — see script.js). Kept on this outer container (not
+       the parallax wrapper below) so it never fights the scroll-driven
+       parallax transform, which is applied separately on
+       .hero-image-wrapper. */
+    --hero-reveal-y: 130px;
+    --hero-reveal-blur: 6px;
+    opacity: 0;
+    transform: translateY(var(--hero-reveal-y));
+    filter: blur(var(--hero-reveal-blur));
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-image-container.is-visible {
+    --hero-reveal-y: 0px;
+    --hero-reveal-blur: 0px;
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-image-container {
+        transition: none;
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+/* Portrait Wrap - structured to accept transparent PNG in the future */
+.hero-image-wrapper {
+    position: absolute;
+    bottom: -2vh;
+    /* subtle bleed beyond viewport bottom */
+    top: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 88vh;
+    /* anchor height of 85-90vh */
+    width: auto;
+    aspect-ratio: 1024/1042;
+    overflow: visible;
+    will-change: transform;
+    z-index: 1;
+    /* sits behind content */
+}
+
+/* Scale box to apply scale without interfering with parallax wrapper translation */
+.hero-portrait-scale-box {
+    width: 100%;
+    height: 100%;
+    transform: scale(var(--hero-portrait-scale, 1));
+    transform-origin: center bottom;
+    will-change: transform;
+    display: block;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+/* Disabled or set to none to preserve clean white canvas */
+.hero-blur-overlay {
+    display: none !important;
+    pointer-events: none;
+}
+
+/* Subtle linear gradient fade overlay at bottom of portrait to ground it on warm canvas */
+.bottom-cloud-effect {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25vh;
+    background: linear-gradient(to top, rgba(249, 248, 245, 1) 0%, rgba(249, 248, 245, 0) 100%);
+    pointer-events: none;
+    z-index: 2;
+    /* sits between portrait and overlay */
+}
+
+/* Subtle atmospheric white glow disabled to avoid glow ring */
+.hero-text-glow {
+    display: none !important;
+    pointer-events: none;
+}
+
+/* Hero Content & Columns */
+.hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 4vw 8vh;
+    /* consistent outer margins + bottom offset */
+    z-index: 3;
+    /* sits in front of portrait and overlay */
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.hero-content-inner {
+    width: 100%;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 40px;
+    align-items: end;
+    pointer-events: auto;
+    position: relative;
+}
+
+.hero-headline-col {
+    grid-column: 1 / 7;
+    /* spans columns 1 to 6 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Pulse Badge Tag */
+.hero-tag {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.pulse-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-core {
+    width: 8px;
+    height: 8px;
+    background-color: var(--green-pulse);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--green-pulse);
+    border-radius: 50%;
+    animation: pulse 2.2s infinite ease-out;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+.tag-text {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--text-secondary);
+}
+
+/* Large Editorial Typography */
+.hero-title {
+    font-family: 'Gambarino', serif;
+    font-weight: 400;
+    /* Gambarino's only weight — naturally premium */
+    font-size: clamp(40px, 5.1vw, 76px);
+    /* 4.8vw–5.2vw range, fluid */
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    /* slight open tracking flatters the display serifs */
+    color: #2c2c2c;
+    /* solid deep charcoal */
+}
+
+.hero-desc-col {
+    grid-column: 9 / 13;
+    /* spans columns 9 to 12 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.hero-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    letter-spacing: 0em;
+    color: #3a3a3a;
+    /* soft off-black */
+    max-width: 360px;
+    /* Keep paragraph relatively narrow */
+}
+
+/* Lightweight Editorial CTA (replaces heavy black pill) */
+.hero-cta {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 17px;
+    /* Increased slightly from 15px */
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    background: none !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.2) !important;
+    padding: 0 0 3px 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    /* keep "Contact Us" on a single line at every breakpoint */
+    flex: 0 0 auto;
+    transition: all 0.2s ease;
+}
+
+/* Arrow removed site-wide per request (no ::after content on .hero-cta) */
+
+.hero-cta:hover {
+    color: var(--text-secondary);
+    border-bottom-color: var(--text-primary) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.hero-cta:active {
+    opacity: 0.7;
+}
+
+/* =======================================================
+           GLASSMORPHISM NAVBAR OVERRIDE
+           Sizing controlled via CSS variables defined in :root.
+           Adjust --navbar-height-override, --navbar-h-padding,
+           --navbar-logo-height, --navbar-logo-left-trim above.
+           ======================================================= */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1300px;
+    height: var(--navbar-height-override);
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    padding: 0 var(--navbar-h-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* NAVBAR LOGO — size + left-trim to remove excess PNG whitespace.
+           Logo is static on hover — no transform applied intentionally. */
+.navbar-logo {
+    height: var(--navbar-logo-height);
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-left: var(--navbar-logo-left-trim);
+}
+
+/* ===================================================
+           TABLET BREAKPOINT  (810px – 1199px)
+
+           TABLET HERO — MANUAL PORTRAIT ADJUSTMENT
+           The portrait covers the full hero viewport.
+           Text overlays it near the bottom (chest area).
+
+           Key tuning variables (in :root above):
+             --hero-portrait-width-tablet  : how wide the portrait is
+             --hero-portrait-top-tablet    : top offset of portrait
+             --hero-portrait-scale-tablet  : scale factor
+
+           Text vertical position is controlled by
+           .hero-content padding-bottom inside this breakpoint.
+           =================================================== */
+@media (max-width: 1199px) {
+
+    /* Hero stays full-viewport — portrait fills it */
+    .hero {
+        height: 100vh;
+        min-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Image container: absolute, fills the whole hero */
+    .hero-image-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #f9f8f5;
+    }
+
+    /* Portrait wrapper: anchored to the bottom of the hero and sized
+       fluidly (vw-based) so it never floats above the bottom edge or
+       shrinks down too small on wider tablet / laptop widths. */
+    .hero-image-wrapper {
+        top: auto;
+        bottom: 0;
+        left: 50%;
+        width: clamp(520px, 62vw, 780px);
+        height: 94vh;
+        transform: translate(-50%, 0);
+        aspect-ratio: unset;
+    }
+
+    .hero-portrait-scale-box {
+        transform: scale(var(--hero-portrait-scale-tablet));
+        transform-origin: center bottom;
+    }
+
+    /* Fill the frame instead of letterboxing (contain left large empty
+       gaps top/bottom, making the portrait look small/short). */
+    .hero-image {
+        object-fit: cover;
+        object-position: center 12%;
+    }
+
+    .hero-blur-overlay {
+        height: 300px;
+    }
+
+    /* Text layer: absolute, pinned to bottom of hero.
+               Increase padding-bottom to raise text higher (chest area). */
+    .hero-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 48px 52px;
+        /* ← raise this value to push text further up (chest vs waist) */
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    /* H1 and CTA on the same horizontal row, space-between */
+    .hero-content-inner {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 40px;
+        max-width: 1100px;
+        width: 100%;
+    }
+
+    .hero-headline-col {
+        flex: 1;
+        max-width: 55%;
+        gap: 0;
+    }
+
+    /* Tablet H1 — readable but not oversized */
+    .hero-title {
+        font-size: clamp(26px, 3.4vw, 38px);
+        line-height: 1.15;
+    }
+
+    /* Right side: hide description, keep CTA */
+    .hero-desc-col {
+        flex: 0 0 auto;
+        max-width: none;
+        gap: 0;
+        align-items: flex-end;
+    }
+
+    .hero-desc {
+        display: none;
+    }
+
+    /* Navbar — compact on tablet */
+    .navbar {
+        top: 10px;
+        width: calc(100% - 28px);
+        height: var(--navbar-height-override);
+        padding: 0 20px;
+        border-radius: 14px;
+    }
+
+    .navbar-logo {
+        height: 38px;
+    }
+}
+
+/* ===================================================
+           MOBILE BREAKPOINT  (≤ 809px)
+
+           MOBILE HERO — MANUAL PORTRAIT ADJUSTMENT
+           Portrait covers the full hero viewport height.
+           Text overlays at the bottom (chest/body area).
+
+           To fine-tune vertical text position:
+             Increase padding-bottom in .hero-content below
+             to raise the text higher over the portrait.
+
+           To fine-tune portrait framing:
+             Adjust object-position in .hero-image below
+             e.g. "center 10%" shows more head room.
+
+           --hero-portrait-width-mobile in :root controls
+           how wide the portrait wrapper is (default 100%).
+           =================================================== */
+@media (max-width: 809px) {
+
+    /* Hero = full viewport, single layer — portrait behind, text in front */
+    .hero {
+        height: 100svh;
+        height: 100vh;
+        /* fallback for older browsers */
+        min-height: 0;
+        overflow: hidden;
+        display: block;
+        /* block so absolute children stack freely */
+        position: relative;
+    }
+
+    /* Portrait container: inset from the hero edges so the image sits
+       inside its own bordered "frame" on phones, with breathing room
+       below the floating navbar instead of running full-bleed. */
+    .hero-image-container {
+        position: absolute;
+        top: 68px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        height: auto;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        background-color: #f9f8f5;
+    }
+
+    /* Portrait wrapper: fills the framed container, centred */
+    .hero-image-wrapper {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: var(--hero-portrait-width-mobile);
+        height: 100%;
+        bottom: unset;
+        aspect-ratio: unset;
+    }
+
+    /* Scale box: no extra scale — portrait sized by wrapper */
+    .hero-portrait-scale-box {
+        transform: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Portrait image: cover mode so it fills the framed box top-to-
+       bottom (contain was leaving big empty gaps and made the whole
+       thing look squashed/short). Anchored high so the face stays
+       visible after the crop. */
+    .hero-image {
+        object-fit: cover;
+        object-position: center 10%;
+        /* ← adjust % to move portrait up/down within the frame */
+    }
+
+    /* Blur overlay — covers lower portion behind text */
+    .hero-blur-overlay {
+        height: 55%;
+        /* taller overlay for mobile text legibility */
+    }
+
+    /* Cloud effect: not needed now that the portrait sits inside a
+       bordered frame with visible margin, rather than bleeding to
+       the screen edge. */
+    .bottom-cloud-effect {
+        display: none;
+    }
+
+    /* Text layer: absolute, pinned to the bottom of the hero.
+               padding-bottom controls how far up the text sits over
+               the portrait — increase to push text further up. */
+    .hero-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 20px 36px;
+        /* ← increase padding-bottom to raise text (chest area) */
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        pointer-events: none;
+    }
+
+    /* H1 on the left, CTA on the right — same horizontal row */
+    .hero-content-inner {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        max-width: 100%;
+        width: 100%;
+        pointer-events: auto;
+    }
+
+    /* Headline: left side, constrained width so CTA has room */
+    .hero-headline-col {
+        flex: 1;
+        max-width: 62%;
+        gap: 0;
+    }
+
+    /* H1: bigger, clearly readable on phone */
+    .hero-title {
+        font-size: clamp(26px, 8vw, 38px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+    }
+
+    /* Description hidden on mobile */
+    .hero-desc {
+        display: none;
+    }
+
+    /* Right side: just the CTA button, no paragraph */
+    .hero-desc-col {
+        flex: 0 0 auto;
+        max-width: none;
+        gap: 0;
+        align-items: flex-end;
+    }
+
+    /* Text-glow not needed — blur overlay handles contrast */
+    .hero-text-glow {
+        display: none;
+    }
+
+    /* Navbar — very compact pill on mobile */
+    .navbar {
+        top: 8px;
+        width: calc(100% - 16px);
+        height: 44px;
+        padding: 0 14px;
+        border-radius: 12px;
+    }
+
+    .navbar-logo {
+        height: 30px;
+        margin-left: var(--navbar-logo-left-trim);
+    }
+}
+
+/* =======================================================
+   HERO ENTRANCE ANIMATIONS
+   1) H1 word-by-word reveal on page load
+   2) Right paragraph slides in from the right
+   3) Portrait parallax handled in JS (see 1.html script)
+   ======================================================= */
+
+/* --- 1. H1 sequential word reveal: From -> Pain -> to -> Peace. --- */
+.hero-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.hero-word-inner {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+    animation: heroWordReveal 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* Note: uses :nth-of-type (not :nth-child) so the <br> between "Pain" and
+   "to" doesn't throw off the sibling count — nth-of-type only counts
+   same-tag (span) siblings, ignoring the <br>. */
+
+/* "From" */
+.hero-word:nth-of-type(1) .hero-word-inner {
+    animation-delay: 0.05s;
+}
+
+/* "Pain" */
+.hero-word:nth-of-type(2) .hero-word-inner {
+    animation-delay: 0.15s;
+}
+
+/* "to" */
+.hero-word:nth-of-type(3) .hero-word-inner {
+    animation-delay: 0.25s;
+}
+
+/* "Peace." */
+.hero-word:nth-of-type(4) .hero-word-inner {
+    animation-delay: 0.35s;
+}
+
+@keyframes heroWordReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+        filter: blur(4px);
+    }
+
+    60% {
+        filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+/* --- 2. Right side: paragraph + CTA enter together from the right --- */
+.hero-desc,
+.hero-cta {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: heroDescReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.3s;
+    /* starts shortly after the H1 reveal begins; paragraph & CTA move together */
+}
+
+@keyframes heroDescReveal {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Respect reduced-motion preference: show content immediately, no motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-word-inner,
+    .hero-desc,
+    .hero-cta {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+}
+/* ==========================================================================
+   Process Section — "How It Works" (Frosted Glass Step Cards)
+   ========================================================================== */
+
+.process-section-wrapper {
+    background-color: #f9f8f5;
+    padding: 120px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.process-section {
+    width: 100%;
+    max-width: 100%;
+    min-height: 150vh;
+    /* Outer surface radius — deep organic luxury card edge */
+    border-radius: 44px;
+
+    background-color: #0d0d0d;
+    background-image: url('assets/black.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: relative;
+    /* Horizontal padding/margins preserved exactly as originally set */
+    padding: 120px 8%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 80px;
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.4);
+}
+
+.process-header {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12%;
+    align-items: flex-start;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+/* Eyebrow label */
+.process-section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Headline — Marcellus, dual-tone contrast */
+.process-header-support {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.45);
+    /* dim context words */
+    max-width: 660px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.process-header-support .process-highlight {
+    color: #ffffff;
+    /* key impact phrases */
+}
+
+/* Frosted glass step card */
+.process-block {
+    width: 100%;
+    max-width: 500px;
+
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    padding: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Alternating vertical layout */
+.process-block:nth-child(even) {
+    align-self: flex-end;
+    margin-right: 5%;
+}
+
+.process-block:nth-child(odd) {
+    align-self: flex-start;
+    margin-left: 5%;
+}
+
+.process-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 10px;
+}
+
+.process-step-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+}
+
+.process-step-number {
+    font-family: 'Marcellus', serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.process-title {
+    font-family: 'Marcellus', serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: #ffffff;
+}
+
+.process-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .process-section {
+        padding: 100px 6%;
+        border-radius: 28px;
+        min-height: auto;
+        gap: 80px;
+    }
+
+    .process-block {
+        max-width: 460px;
+        padding: 28px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .process-section-wrapper {
+        padding: 60px 0;
+    }
+
+    .process-section {
+        padding: 80px 32px;
+        border-radius: 24px;
+        gap: 48px;
+    }
+
+    .process-header {
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .process-header-support {
+        text-align: center;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .process-block {
+        max-width: 100%;
+        align-self: stretch !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 24px 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .process-section {
+        padding: 60px 20px;
+        border-radius: 20px;
+        gap: 32px;
+    }
+
+    .process-block {
+        padding: 20px;
+        border-radius: 16px;
+        gap: 12px;
+    }
+}
+
+/* ==========================================================================
+   Minimal Bento Gallery (from minimal-bento-gallery.html)
+   Note: grid class renamed to .mbg-bento-grid to avoid collision with the
+   existing .bento-grid rules already defined above in this file.
+   ========================================================================== */
+:root{
+  --page-bg:   #f9f8f5;
+  --gap:       0.1875rem;
+  --ease:      ease-in-out;
+}
+
+/* ---------- Container ---------- */
+.gallery-frame{
+  width: 98%;
+  margin: 0 auto;
+  padding: 0rem;
+  background: var(--page-bg);
+  position: relative;
+}
+
+/* ---------- Grid ---------- */
+.mbg-bento-grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 20rem);
+  gap: var(--gap);
+}
+
+.card{
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f0f0ef;
+}
+
+.card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover img,
+.card:focus-visible img{
+  transform: scale(1.03);
+}
+
+.card:focus-visible{
+  outline: 0.125rem solid #1a1a1a;
+  outline-offset: 0.1875rem;
+}
+
+/* explicit placements */
+.card-1{ grid-column: 1;         grid-row: 1 / span 2; }
+.card-2{ grid-column: 2 / span 2; grid-row: 1; }
+.card-3{ grid-column: 4;         grid-row: 1; }
+.card-4{ grid-column: 5;         grid-row: 1; }
+.card-5{ grid-column: 2 / span 3; grid-row: 2; }
+.card-6{ grid-column: 5;         grid-row: 2; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px){
+  .mbg-bento-grid{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: 15rem;
+    grid-auto-flow: row;
+  }
+  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6{
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 600px){
+  .mbg-bento-grid{
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 0.1875rem;
+  }
+  .card{ grid-column: 1; grid-row: auto; height: auto; }
+  .card-1, .card-2, .card-5{ aspect-ratio: 4 / 3; }
+  .card-3, .card-4, .card-6{ aspect-ratio: 1 / 1; }
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.is-open{
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-image{
+  width: 60vh;
+  height: 80vh;
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  animation: scaleIn 0.3s ease forwards;
+}
+
+@keyframes scaleIn{
+  from{ transform: scale(0.8); opacity: 0; }
+  to{   transform: scale(1);   opacity: 1; }
+}
+
+.lb-btn{
+  position: fixed;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.875rem rgba(0,0,0,0.2);
+  color: #1a1a1a;
+  z-index: 1001;
+}
+
+.lb-btn:hover{ background: #ffffff; }
+.lb-btn:focus-visible{ outline: 0.125rem solid #ffffff; outline-offset: 0.125rem; }
+
+.lb-close{ top: 1.25rem; right: 1.25rem; }
+.lb-prev{ left: 1.25rem; top: 50%; transform: translateY(-50%); }
+.lb-next{ right: 1.25rem; top: 50%; transform: translateY(-50%); }
+
+@media (max-width: 600px){
+  .lb-prev, .lb-next{ width: 2.25rem; height: 2.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .card img{ transition: none; }
+  .lightbox-image{ animation: none; }
+  .lightbox{ transition: none; }
+}
